@@ -9,7 +9,7 @@ const Sidebar = ({ onMenuClick, activeMenu }) => {
     { id: 'Dashboard', icon: <FaHome className="w-6 h-6 mr-2" />, label: 'Dashboard' },
     { id: 'User', icon: <FaUser className="w-6 h-6 mr-2" />, label: 'User' },
     { id: 'Analisis', icon: <FaChartBar className="w-6 h-6 mr-2" />, label: 'Analisis' },
-    { id: 'ProdukAnalisis', icon: <FaCube className="w-6 h-6 mr-2" />, label: 'Produk Tempat Analisis' },
+    { id: 'Produk', icon: <FaCube className="w-6 h-6 mr-2" />, label: 'Produk ' },
     { id: 'Meja', icon: <FaTable className="w-6 h-6 mr-2" />, label: 'Meja' },
     { id: 'Logout', icon: <FaSignOutAlt className="w-6 h-6 mr-2" />, label: 'Logout' },
   ];

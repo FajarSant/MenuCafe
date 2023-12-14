@@ -1,13 +1,19 @@
 // components/MainContent.js
 import React from 'react';
-import Dashboard from './Components/Dashboard';
+import User from './User';
+import Dashboard from './Dashboard';
+import Produk from './Produk';
+import Meja from './Meja';
 
 const MainContent = ({ selectedMenu }) => {
   return (
     <div className="flex-1 p-4">
-      <div className="text-xl font-bold mb-4">Main Content</div>
 
       {selectedMenu === 'Dashboard' && <Dashboard />}
+      {selectedMenu === 'User' && <User />}
+      {selectedMenu === 'Analisis' && <Dashboard />}
+      {selectedMenu === 'Produk' && <Produk />}
+      {selectedMenu === 'Meja' && <Meja />}
     </div>
   );
 };

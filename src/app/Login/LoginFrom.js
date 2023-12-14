@@ -1,19 +1,20 @@
 // LoginForm.js
-'use client'
+'use client';
 import React, { useState } from 'react';
 import RegisterForm from './RegisterForm';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     try {
-      // Gantilah dengan pemanggilan API login di sini
-      const response = await fetch('https://api.example.com/login', {
+      const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,24 +23,34 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        // Login berhasil, lakukan tindakan sesuai kebutuhan
         console.log('Login success!');
+        // Redirect to the home page upon successful login
+        window.location.href = '/';
       } else {
-        // Login gagal, tampilkan pesan kesalahan atau lakukan tindakan lainnya
         console.error('Login failed');
+        setError('Invalid username or password');
       }
     } catch (error) {
       console.error('Error during login:', error);
+      setError('Internal Server Error');
     }
   };
 
   const toggleForm = (formType) => {
     setShowRegisterForm(formType === 'register');
+    setError(null); // Reset error message when switching between login and registration forms
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Login</h2>
+      {error && (
+        <div className="mb-4 text-red-500">{error}</div>
+      )}
       {!showRegisterForm ? (
         <form onSubmit={handleLogin}>
           <div className="mb-4">
@@ -60,15 +71,24 @@ const LoginForm = () => {
             <label htmlFor="password" className="block text-gray-600 text-sm font-medium">
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="absolute top-2 right-3 focus:outline-none"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </div>
           <button
             type="submit"

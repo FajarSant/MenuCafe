@@ -1,7 +1,8 @@
 const express = require('express');
-const cors = require('cors'); // Import the cors middleware
+const cors = require('cors'); // 
 const app = express();
 const produkRoutes = require('./produk');
+const userRoutes = require('./User')
 
 // Use cors middleware
 app.use(cors());
@@ -9,6 +10,7 @@ app.use(cors());
 // Other configurations and middleware
 app.use(express.json());
 
+app.use(userRoutes)
 app.use(produkRoutes);
 
 // Start the server

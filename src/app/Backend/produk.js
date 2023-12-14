@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const connection = require('./DB'); // Assuming your database connection is in a file named 'db.js'
 
+
+
 // Get all products
 router.get('/api/produk', (req, res) => {
   connection.query('SELECT * FROM produk', (err, results) => {
@@ -34,7 +36,7 @@ router.get('/api/produk/:id', (req, res) => {
 router.post('/api/produk', (req, res) => {
   const { nama, deskripsi, img_url, harga, kategori } = req.body;
   connection.query(
-    'INSERT INTO produk (nama, deskripsi, img_url, harga, kategori) VALUES (?, ?, ?, ?, ?)',
+    'INSERT INTO produk (nama, deskripsi, image_url, harga, kategori) VALUES (?, ?, ?, ?, ?)',
     [nama, deskripsi, img_url, harga, kategori],
     (err) => {
       if (err) {
