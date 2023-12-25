@@ -10,8 +10,8 @@ app.use(cors());
 // Other configurations and middleware
 app.use(express.json());
 
-app.use(userRoutes)
 app.use(produkRoutes);
+app.use(userRoutes)
 
 // Start the server
 const PORT = process.env.PORT || 5000;

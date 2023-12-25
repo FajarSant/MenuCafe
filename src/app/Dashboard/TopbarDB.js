@@ -1,17 +1,39 @@
-// TopbarDB.js
+// Topbar.js
 'use client'
-// TopbarDB.js
 import React, { useState, useEffect } from 'react';
-import {FaBars, FaBell, FaUser } from 'react-icons/fa';
+import { FaBars, FaBell, FaUser } from 'react-icons/fa';
 import { IoCloseSharp } from 'react-icons/io5';
 
 const Topbar = ({ isSidebarOpen, onToggleSidebar }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+
+    // Fetch user data from the API
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/user', {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
+
+        if (!response.ok || response.status === 401) {
+          throw new Error('Failed to fetch user data');
+        }
+
+        const userData = await response.json();
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error during user data fetch:', error);
+      }
+    };
+
+    fetchUserData();
 
     return () => {
       clearInterval(intervalId);
@@ -34,13 +56,17 @@ const Topbar = ({ isSidebarOpen, onToggleSidebar }) => {
       {/* Bagian Center */}
       <div className="flex items-center ml-4 lg:ml-0">
         <div className="text-xl font-bold">MokaCoffee Center</div>
-        <div className="ml-4 text-sm">
-          {currentTime.toLocaleTimeString('id-ID', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
-          {' WIB'}
-        </div>
+        {userData && (
+          <div className="ml-4 text-sm">
+            {`Hello, ${userData.name || 'User'}`} {/* Menampilkan nama pengguna jika tersedia */}
+            <br />
+            {currentTime.toLocaleTimeString('id-ID', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+            {' WIB'}
+          </div>
+        )}
       </div>
       {/* Bagian End */}
       <div className="flex items-center space-x-4">

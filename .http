@@ -1,20 +1,25 @@
-### @name Login Test
-### @name Login Test
-
-POST http://localhost:5000/api/login
+### Register User
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-   "username": "admin1",
-  "password": "admin"
+  "username": "user123",
+  "password": "password123"
 }
 
-### @name Register Test
-
-POST http://localhost:5000/api/register
+### Login User
+POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-  "username": "admin1",
+  "username": "admin",
   "password": "admin"
 }
+
+### Get User Information (Requires Authorization)
+GET http://localhost:5000/user
+Authorization: Bearer <token-from-login-response>
+
+### Logout User (Requires Authorization)
+POST http://localhost:5000/logout
+Authorization: Bearer <token-from-login-response>

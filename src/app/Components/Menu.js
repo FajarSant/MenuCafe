@@ -15,7 +15,7 @@ const data = [
   // ... tambahkan data lainnya sesuai kebutuhan
 ];
 
-const Navbar = () => {
+const Menu = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [loading, setLoading] = useState(false);
 
@@ -154,4 +154,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Menu;
